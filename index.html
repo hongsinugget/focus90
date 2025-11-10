@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focus90 - 90분 집중 타이머</title>
-    <!-- CSS 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-theme="light">
     <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="themeIcon">🌙</span> 다크모드
+            </button>
+            <button class="settings-btn" onclick="openSettings()">
+                ⚙️ 시간 설정
+            </button>
+        </div>
+
         <!-- 알림 권한 배너 -->
         <div class="notification-banner" id="notificationBanner">
             <p>브라우저 알림을 허용해야 전환 알림을 받을 수 있어요.</p>
@@ -16,59 +25,65 @@
 
         <!-- 타이머 카드 -->
         <div class="timer-card">
-            <!-- 모드 표시 -->
             <div class="mode-indicator">
                 <div class="mode-dot focus" id="modeDot"></div>
                 <span class="mode-text" id="modeText">집중 모드</span>
             </div>
 
-            <!-- 타이머 디스플레이 -->
-            <div class="timer-display">
+            <div class="completion-message" id="completionMessage">
+                <h3 id="completionTitle">집중 90분 종료!</h3>
+                <p id="completionText">휴식을 시작하려면 '휴식 시작' 버튼을 눌러주세요.</p>
+            </div>
+
+            <div class="timer-display" id="timerDisplay">
                 <div class="timer-time focus" id="timerTime">90:00</div>
                 <div class="timer-label" id="timerLabel">집중 중</div>
             </div>
 
-            <!-- 컨트롤 버튼 -->
-            <div class="controls">
-                <button class="btn-start" id="startBtn" onclick="handleStart()">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    시작
-                </button>
-                <button class="btn-pause" id="pauseBtn" onclick="handlePause()" style="display: none;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    일시정지
-                </button>
-                <button class="btn-reset" onclick="handleReset()">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    리셋
-                </button>
+            <div class="controls" id="controls">
+                <button class="btn-start" id="startBtn" onclick="handleStart()">시작</button>
+                <button class="btn-pause" id="pauseBtn" onclick="handlePause()" style="display: none;">일시정지</button>
+                <button class="btn-reset" onclick="handleReset()">리셋</button>
             </div>
 
-            <!-- 안내 문구 -->
+            <div class="controls" id="completionControls" style="display: none;">
+                <button class="btn-break-start" onclick="startBreak()">휴식 시작</button>
+                <button class="btn-secondary" onclick="dismissCompletion()">다음에 시작</button>
+            </div>
+
             <div class="info-section">
-                <p>✓ 자동 반복 모드 활성화</p>
-                <p>집중 90분 → 휴식 20분이 자동으로 반복됩니다</p>
+                <p id="infoText">집중 시간을 자유롭게 설정할 수 있습니다</p>
+                <div class="sound-toggle">
+                    <input type="checkbox" id="soundToggle" checked onchange="toggleSound()">
+                    <label for="soundToggle">알림 소리 켜기</label>
+                </div>
             </div>
         </div>
 
-        <!-- 하단 안내 -->
         <div class="footer">
             <p>Focus90 - 깊은 몰입을 위한 타이머</p>
         </div>
     </div>
 
-    <!-- JS 연결 -->
+    <!-- 설정 모달 -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3>시간 설정</h3>
+            <div class="time-input-group">
+                <label for="focusTimeInput">집중 시간 (분)</label>
+                <input type="number" id="focusTimeInput" min="1" max="180" value="90">
+            </div>
+            <div class="time-input-group">
+                <label for="breakTimeInput">휴식 시간 (분)</label>
+                <input type="number" id="breakTimeInput" min="1" max="60" value="20">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="closeSettings()">취소</button>
+                <button class="btn-start" onclick="saveSettings()">저장</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
