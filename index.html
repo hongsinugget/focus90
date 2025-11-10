@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focus90 - 90분 집중 타이머</title>
+    <title>Focus90 - 깊은 몰입을 위한 타이머</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="light">
@@ -25,32 +25,38 @@
 
         <!-- 타이머 카드 -->
         <div class="timer-card">
+            <!-- 모드 표시 -->
             <div class="mode-indicator">
                 <div class="mode-dot focus" id="modeDot"></div>
                 <span class="mode-text" id="modeText">집중 모드</span>
             </div>
 
+            <!-- 완료 메시지 -->
             <div class="completion-message" id="completionMessage">
                 <h3 id="completionTitle">집중 90분 종료!</h3>
                 <p id="completionText">휴식을 시작하려면 '휴식 시작' 버튼을 눌러주세요.</p>
             </div>
 
+            <!-- 타이머 디스플레이 -->
             <div class="timer-display" id="timerDisplay">
                 <div class="timer-time focus" id="timerTime">90:00</div>
                 <div class="timer-label" id="timerLabel">집중 중</div>
             </div>
 
+            <!-- 컨트롤 버튼 -->
             <div class="controls" id="controls">
                 <button class="btn-start" id="startBtn" onclick="handleStart()">시작</button>
                 <button class="btn-pause" id="pauseBtn" onclick="handlePause()" style="display: none;">일시정지</button>
                 <button class="btn-reset" onclick="handleReset()">리셋</button>
             </div>
 
+            <!-- 완료 시 버튼 -->
             <div class="controls" id="completionControls" style="display: none;">
                 <button class="btn-break-start" onclick="startBreak()">휴식 시작</button>
                 <button class="btn-secondary" onclick="dismissCompletion()">다음에 시작</button>
             </div>
 
+            <!-- 안내 문구 -->
             <div class="info-section">
                 <p id="infoText">집중 시간을 자유롭게 설정할 수 있습니다</p>
                 <div class="sound-toggle">
@@ -60,6 +66,7 @@
             </div>
         </div>
 
+        <!-- 하단 안내 -->
         <div class="footer">
             <p>Focus90 - 깊은 몰입을 위한 타이머</p>
         </div>
